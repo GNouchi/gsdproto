@@ -1,5 +1,5 @@
+<h3>To Do: </h3>
 <ul>
-To Do:
 <li> Intergrate social sign up </li>
 <li> Intergrate social sign in </li>
 <li> Intergrate refresh tokens </li>
