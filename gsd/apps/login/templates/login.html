@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+    <!-- fa -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    *{text-align: center;}
+    .main{
+        margin-top: 3em;
+        height: 900px;
+    }
+    .form-group{
+        margin-bottom: 0.25em;
+    }
+    .space{
+        margin-top: 10px;
+        padding: 5px;
+    }
+    .fa:hover {
+        opacity: 0.7;
+    }
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }    
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+    .fa {
+      padding: 20px;
+      margin-left: 5px;
+      font-size: 30px;
+      text-align: center;
+      width: 2.5em;
+    }
+    .modal-pane{
+        height: 200px;
+    }
+    </style>
+    <title>login</title>
+</head>
+<body>
+<!------------------------------------------>
+<!--                 Nav                  -->
+<!------------------------------------------>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class ="container-fluid">
+        <ul class="navbar-nav ">
+            <li class="nav-item active"><h4>Test App</h4></li>
+            <li class="nav-link active"><a href="main">Temp link to Main</a></li>
+        </ul>
+        <div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registermodal">
+                <i class="fas fa-users"></i>
+                New Users
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginmodal">
+                <i class="fas fa-sign-in-alt"></i>
+                Returning Users
+        </button>
+        </div>
+    </div>
+</nav>  
+<!-- /Nav -->
+
+<!------------------------------------------>
+<!--          Register Modal              -->
+<!------------------------------------------>
+<div class="modal" id="registermodal" tabindex="-1" role="dialog" >
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+    <h2 class="modal-title">
+        <i class="fas fa-user-plus"></i>
+        New Users
+    </h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+        
+<div class="modal-body">
+<div class="row">
+<!-- left side -->
+<div class="col-6  ">
+<div class="tab-pane modal-pane container"  role="tabpanel" >
+    <form action = "registration" method = "POST" id="registration" >
+        {%csrf_token%}
+        <div class="form-group">
+            <input type="text" class="form-control" name="email" id="" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="password" id="" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="confirm_password" id="" placeholder="Confirm password">
+        </div>
+        <button type="submit" class="btn btn-success btn-block space">Create Account</button>
+    </form>                 
+</div>
+</div>
+<!-- right side -->
+<div class="col-6 ">
+<div class="tab-pane modal-pane" role="tabpanel" >
+    <p class="space">Or sign up via Social Media</p>
+    <div class =" animated rubberBand">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-google"></a>
+    </div>
+</div>
+</div></div>
+<!-- errorbox -->
+{% for message in messages %}
+{%if 'registration' in  message.tags %}
+<div class="alert  alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span></button>
+    </div>
+{% endif %}    
+{% endfor %}
+<!-- /errorbox -->
+</div>
+
+<!-- footer -->
+<div class="modal-footer"><a href="" data-toggle="modal" data-dismiss="modal"  data-target="#loginmodal">Already have an account?</a></div>
+</div></div></div>
+
+        
+<!------------------------------------------>
+<!--            Login Modal               -->
+<!------------------------------------------>
+<div class="modal show" id="loginmodal" tabindex="-1" role="dialog" >
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+    <h2 class="modal-title" >
+        <i class="fas fa-child"></i>
+        Welcome Back !
+    </h2>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+
+
+<div class="modal-body">
+<div class="row">
+<!-- LEFT side -->
+<div class="col-6  ">
+<div class="tab-pane modal-pane container" role="tabpanel" >
+<!-- login normal -->
+    <form action = "login" method = "POST" id="login" >
+        {%csrf_token%}
+        <div class="form-group">
+            <input type="text" class="form-control" name="email" id="" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="password" id="" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block space">Login</button>
+    </form>                 
+</div>
+</div>
+<!-- RIGHT side -->
+<div class="col-6 ">
+<div class="tab-pane modal-pane" role="tabpanel" >
+    <!-- login social -->
+    <p class="space">Socail Media Login</p>
+    <div class = "animated bounceInDown" >
+    <a href="#" class="fa fa-facebook"></a>
+    <a href="#" class="fa fa-twitter"></a>
+    <a href="#" class="fa fa-google"></a>
+    </div>
+</div>
+</div></div>
+<!-- errorbox -->
+{% for message in messages %}
+{%if 'login' in  message.tags %}
+<div class="alert  alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span></button>
+    </div>
+{% endif %}    
+{% endfor %}
+<!-- /errorbox -->
+</div>
+<!-- footer -->
+<div class="modal-footer">
+    <a href="">Forgot Password? (Too bad lol)</a><span> | </span>
+    <a href="" data-toggle="modal" data-dismiss="modal"  data-target="#registermodal">New User?</a>
+</div>
+</div></div></div>
+
+
+<!-- Main Container -->
+<div class ="container main">
+<div class="jumbotron">
+  <h1 class="display-4">Hello, world!</h1>
+ 
+<hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<!-- tabs list group -->
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga deleniti earum fugiat aperiam autem. Fugit tempore sunt placeat nihil, beatae neque temporibus odio est ipsum..</div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">humanahumanahumanahumanahumanahumanahumanahumanahumanahumana</div>
+        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+        </div>
+    </div>
+</div>
+    <!-- /tabs list group -->
+
+
+</div>
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
+
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#{{show_modal}}').modal('show');
+        });
+    </script>
+</body>
+</html>
